@@ -1,9 +1,8 @@
 export type CategorySlug =
-  | "ai-tools"
   | "website-builders"
-  | "design-tools"
-  | "video-tools"
-  | "writing-tools";
+  | "seo-marketing"
+  | "ai-writing"
+  | "website-assets";
 
 export type Pricing = "Free" | "Freemium" | "Paid";
 

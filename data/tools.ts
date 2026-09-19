@@ -3,245 +3,254 @@ import type { Tool } from "./types";
 /**
  * TOOL DATA
  * ---------------------------------------------------------------------------
- * Every entry below is DEMO DATA (demo: true). The names are deliberately
- * generic and websiteUrl points to example.com, so nothing here makes claims
- * about a real product. Replace each entry with a verified tool before launch.
+ * Every entry is a real product. Facts were taken from each provider's own
+ * website or help center. Only broad pricing types are stored (no exact prices),
+ * because plans and prices change. `freePlan` is:
+ *   true  = a free plan is currently listed by the provider
+ *   false = no free plan is currently listed (a trial may still exist)
+ *   null  = unclear / not verified
  *
- * To add a tool: copy an entry, give it a unique id/slug, pick a category slug
- * from data/categories.ts. No component changes are needed.
+ * AFFILIATE LINKS
+ * `affiliateUrl` is intentionally empty for every tool. Paste a link there only
+ * after the matching affiliate account has been approved. While it is empty,
+ * "Visit Tool" links to `websiteUrl` (see lib/affiliate.ts).
  *
- * Affiliate links: paste your real link into `affiliateUrl`. If it is empty,
- * the "Visit Tool" button links to `websiteUrl` instead.
+ * To add a tool: copy an entry, use a unique id/slug, pick a category slug from
+ * data/categories.ts. No component changes are needed.
  */
 export const tools: Tool[] = [
   {
-    id: "demo-chat-assistant",
-    name: "Example Chat Assistant",
-    slug: "example-chat-assistant",
-    shortDescription: "A general-purpose AI assistant for drafting, brainstorming and questions.",
+    id: "wix",
+    name: "Wix",
+    slug: "wix",
+    shortDescription:
+      "A website builder with templates, a drag-and-drop editor and an AI website builder.",
     description:
-      "A general-purpose AI assistant you talk to in plain language. People typically use this kind of tool to draft text, brainstorm ideas and get quick answers.",
-    category: "ai-tools",
-    bestFor: "Drafting and brainstorming",
+      "Wix is a website builder that combines templates, a drag-and-drop editor and an AI website builder. According to Wix, you can start for free without a credit card, and built-in business tools cover areas such as eCommerce, scheduling and SEO. A free Wix site uses a Wix domain; connecting a custom domain, removing ads and unlocking advanced business features requires a Premium plan.",
+    category: "website-builders",
+    bestFor: "Business sites, online stores, blogs and portfolios",
     pricing: "Freemium",
     freePlan: true,
-    features: ["Conversational interface", "Text drafting and editing", "Idea generation"],
-    pros: ["Flexible across many everyday tasks", "Quick to start with"],
-    considerations: [
-      "Outputs should be reviewed before you use them",
-      "Check usage limits on the free plan with the provider",
+    features: [
+      "2,000+ templates",
+      "AI website builder and drag-and-drop editor",
+      "Built-in business tools such as eCommerce, scheduling and CRM",
+      "SEO tools and an SEO assistant",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
+    pros: [
+      "You can start for free, with no credit card required",
+      "Templates for many types of sites, from portfolios to online stores",
+      "Hosting is included with Wix sites",
+    ],
+    considerations: [
+      "A custom domain and ad removal require a Premium plan",
+      "Selling through an online store requires upgrading to a Premium plan",
+      "Check current plan details and pricing on Wix's website",
+    ],
+    websiteUrl: "https://www.wix.com/",
+    affiliateUrl: "", // TODO: add only after the Wix affiliate account is approved
     featured: true,
-    tags: ["ai", "assistant", "chatbot", "productivity", "writing"],
-    demo: true,
+    tags: ["wix", "website builder", "ai website builder", "templates", "ecommerce", "no-code"],
+    demo: false,
   },
   {
-    id: "demo-image-generator",
-    name: "Example Image Generator",
-    slug: "example-image-generator",
-    shortDescription: "Create images from text descriptions.",
+    id: "webflow",
+    name: "Webflow",
+    slug: "webflow",
+    shortDescription: "A visual website builder with a built-in CMS and hosting.",
     description:
-      "An AI tool that creates images from a written description. Useful for concept art, social graphics and quick visual ideas.",
-    category: "ai-tools",
-    bestFor: "Concept art and social graphics",
-    pricing: "Freemium",
-    freePlan: true,
-    features: ["Text-to-image generation", "Style options", "Image download"],
-    pros: ["Fast way to explore visual ideas", "No design skills needed"],
-    considerations: [
-      "Check the provider's terms on commercial use",
-      "Results can vary between prompts",
-    ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: false,
-    tags: ["ai", "images", "generator", "creative"],
-    demo: true,
-  },
-  {
-    id: "demo-site-builder-ai",
-    name: "Example Site Builder AI",
-    slug: "example-site-builder-ai",
-    shortDescription: "Describe your site and get a first draft to edit.",
-    description:
-      "An AI-assisted website builder that creates a starting draft from a short description. You then adjust the layout, text and images in a visual editor.",
+      "Webflow is a website builder, CMS and hosting platform. It lets you design responsive sites visually without writing code and manage content through its CMS. Every account starts on a free Starter site plan, which publishes to a webflow.io subdomain; a paid Site plan is needed to host a site and unlock additional features.",
     category: "website-builders",
-    bestFor: "Small business and personal sites",
+    bestFor: "Designers and teams building CMS-driven websites",
     pricing: "Freemium",
     freePlan: true,
-    features: ["AI-generated first draft", "Drag-and-drop editing", "Template library"],
-    pros: ["Gets you from blank page to draft quickly", "Visual editing, no code required"],
-    considerations: [
-      "Check what the free plan includes before you build",
-      "Confirm domain and export options on the provider's site",
+    features: [
+      "Visual site builder",
+      "Built-in CMS for structured content",
+      "Hosting and publishing on the platform",
+      "AI-assisted features (availability varies by plan)",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
+    pros: [
+      "A free Starter site plan lets you try the platform",
+      "Design in a visual canvas without writing code",
+      "The CMS is integrated into the visual builder",
+    ],
+    considerations: [
+      "The free Starter plan has limits on pages, CMS items and monthly visits",
+      "Site plans and Workspace plans are separate, so total cost depends on both",
+      "Check current pricing on Webflow's pricing page",
+    ],
+    websiteUrl: "https://webflow.com/",
+    affiliateUrl: "", // TODO: add only after the Webflow affiliate account is approved
     featured: true,
-    tags: ["ai", "website builder", "website", "no-code"],
-    demo: true,
+    tags: ["webflow", "website builder", "cms", "no-code", "hosting"],
+    demo: false,
   },
   {
-    id: "demo-portfolio-builder-ai",
-    name: "Example Portfolio Builder AI",
-    slug: "example-portfolio-builder-ai",
-    shortDescription: "AI-assisted portfolio sites for creatives and freelancers.",
+    id: "framer",
+    name: "Framer",
+    slug: "framer",
+    shortDescription: "A no-code website builder with a design canvas, CMS and built-in publishing.",
     description:
-      "A website builder focused on portfolios. It uses AI to suggest a structure and wording, which you can then refine.",
+      "Framer is a no-code website builder built around a design canvas. It includes a built-in CMS, SEO and performance features, hosting, and AI features such as Wireframer for generating page layouts. The free plan publishes to a free Framer domain and shows a \u201cMade in Framer\u201d banner.",
     category: "website-builders",
-    bestFor: "Portfolios and freelancers",
+    bestFor: "Designers and marketers building custom company websites",
     pricing: "Freemium",
     freePlan: true,
-    features: ["AI layout suggestions", "Portfolio-focused templates", "Image galleries"],
-    pros: ["Templates built around showing work", "Simple to update"],
-    considerations: [
-      "Less suited to complex, multi-page business sites",
-      "Verify plan limits with the provider",
+    features: [
+      "Design canvas with responsive layouts and animations",
+      "Built-in CMS",
+      "AI features such as Wireframer for page layouts",
+      "Templates from the Framer marketplace",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: false,
-    tags: ["ai", "website builder", "portfolio", "website"],
-    demo: true,
+    pros: [
+      "A free plan is available for building and previewing",
+      "Built-in CMS, SEO tools and analytics",
+      "Real-time collaboration and one-click publishing",
+    ],
+    considerations: [
+      "The free plan uses a Framer domain and shows a \u201cMade in Framer\u201d banner",
+      "Paid plans are added per site, and AI features use credits",
+      "Check current plan limits on Framer's pricing page",
+    ],
+    websiteUrl: "https://www.framer.com/",
+    affiliateUrl: "", // TODO: add only after the Framer affiliate account is approved
+    featured: true,
+    tags: ["framer", "website builder", "no-code", "cms", "ai", "design"],
+    demo: false,
   },
   {
-    id: "demo-page-studio",
-    name: "Example Page Studio",
-    slug: "example-page-studio",
-    shortDescription: "A visual builder for landing pages with AI copy suggestions.",
+    id: "durable",
+    name: "Durable",
+    slug: "durable",
+    shortDescription: "An AI website builder that generates a site from a few questions about your business.",
     description:
-      "A visual page builder aimed at landing pages. It includes AI suggestions for headings and body copy that you can accept or rewrite.",
+      "Durable is an AI website builder. You answer a few questions about your business and it generates a site with content, images and design that you can then customize. Durable also lists business tools such as a CRM, bookings and email campaigns. The free plan lets you build and share a private preview on a durable.site subdomain.",
     category: "website-builders",
-    bestFor: "Landing pages and campaigns",
+    bestFor: "Small businesses wanting a quick, AI-generated site",
+    pricing: "Freemium",
+    freePlan: true,
+    features: [
+      "AI-generated site from a few questions",
+      "Customizable colors, fonts, layouts, images and text",
+      "Built-in SEO features and mobile-responsive sites",
+      "Business tools such as CRM, bookings and email campaigns",
+    ],
+    pros: [
+      "Durable says it generates a site in around 30 seconds",
+      "A free plan lets you build and preview a site",
+      "Custom domains are included with every paid subscription",
+    ],
+    considerations: [
+      "The free plan is a preview on a durable.site subdomain",
+      "Review and edit the generated content before publishing",
+      "Check current plans on Durable's pricing page",
+    ],
+    websiteUrl: "https://durable.com/",
+    affiliateUrl: "", // TODO: add only after the Durable affiliate account is approved
+    featured: true,
+    tags: ["durable", "website builder", "ai website builder", "small business", "no-code"],
+    demo: false,
+  },
+  {
+    id: "semrush",
+    name: "Semrush",
+    slug: "semrush",
+    shortDescription:
+      "An online marketing platform with tools for keyword research, competitor research and rank tracking.",
+    description:
+      "Semrush offers toolkits for SEO and online marketing, including competitor research, keyword research and ranking tracking, and tools to identify issues holding your site back. Its AI Visibility Toolkit shows how AI platforms such as ChatGPT, Google AI and Gemini feature your brand and competitors. A limited free plan is available, and Semrush lists a 7-day free trial for paid plans.",
+    category: "seo-marketing",
+    bestFor: "Marketers and site owners researching keywords and competitors",
+    pricing: "Freemium",
+    freePlan: true,
+    features: [
+      "Keyword research",
+      "Competitor research",
+      "Rank tracking",
+      "AI Visibility Toolkit for brand mentions on AI platforms",
+    ],
+    pros: [
+      "A limited free plan lets you try it without paying",
+      "One platform for SEO research and ranking tracking",
+      "Paid plans can be tried free for seven days",
+    ],
+    considerations: [
+      "The free plan is limited (Semrush lists 1 demo project and 10 reports per day)",
+      "Data exports are disabled during the free trial",
+      "Toolkits, limits and pricing vary by plan, so check Semrush's pricing page",
+    ],
+    websiteUrl: "https://www.semrush.com/",
+    affiliateUrl: "", // TODO: add only after the Semrush affiliate account is approved
+    featured: true,
+    tags: ["semrush", "seo", "marketing", "keyword research", "competitor research", "rank tracking"],
+    demo: false,
+  },
+  {
+    id: "jasper",
+    name: "Jasper",
+    slug: "jasper",
+    shortDescription: "An AI platform for marketing teams to create on-brand written and visual content.",
+    description:
+      "Jasper describes itself as a generative AI platform built for marketing. It helps marketers create on-brand written and visual content, with features such as Brand Voice, Knowledge assets, Agents for marketing workflows and a browser extension. Jasper offers a 7-day free trial of its Pro plan; its pricing page lists Pro and Business plans and no free plan.",
+    category: "ai-writing",
+    bestFor: "Marketing teams creating on-brand content",
     pricing: "Paid",
     freePlan: false,
-    features: ["Visual page editor", "Reusable sections", "AI copy suggestions"],
-    pros: ["Focused on single-page conversions", "Reusable sections speed up new pages"],
-    considerations: [
-      "No free plan, so check for a trial before paying",
-      "Confirm current pricing on the provider's site",
+    features: [
+      "Canvas editor and Chat for creating content",
+      "Brand Voice, Knowledge and Audiences settings",
+      "Agents for marketing workflows",
+      "Image generation and editing",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: false,
-    tags: ["ai", "website builder", "landing page", "no-code"],
-    demo: true,
-  },
-  {
-    id: "demo-design-canvas",
-    name: "Example Design Canvas",
-    slug: "example-design-canvas",
-    shortDescription: "A browser-based design tool for social posts and presentations.",
-    description:
-      "A browser-based design tool with ready-made templates for social posts, presentations and simple brand graphics.",
-    category: "design-tools",
-    bestFor: "Social posts and presentations",
-    pricing: "Freemium",
-    freePlan: true,
-    features: ["Template library", "Drag-and-drop editor", "Export to common formats"],
-    pros: ["Easy for non-designers", "Works in the browser"],
-    considerations: [
-      "Some templates or assets may need a paid plan",
-      "Check export options for your use case",
+    pros: [
+      "A 7-day free trial of the Pro plan",
+      "Brand Voice settings to help keep content on-brand",
+      "Browser extension for Chrome and Edge",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
+    considerations: [
+      "No free plan is listed; the free option is a 7-day trial of Pro",
+      "Pro includes one seat, and more users means contacting sales about the Business plan",
+      "Review AI-generated content before you publish it",
+    ],
+    websiteUrl: "https://www.jasper.ai/",
+    affiliateUrl: "", // TODO: add only after the Jasper affiliate account is approved
     featured: true,
-    tags: ["design", "graphics", "templates", "presentations"],
-    demo: true,
+    tags: ["jasper", "ai", "writing", "marketing", "content", "brand voice"],
+    demo: false,
   },
   {
-    id: "demo-video-editor",
-    name: "Example Video Editor",
-    slug: "example-video-editor",
-    shortDescription: "A browser-based video editor for short clips.",
+    id: "envato-market",
+    name: "Envato Market",
+    slug: "envato-market",
+    shortDescription:
+      "A group of seven marketplaces for website themes, templates, plugins and other digital assets.",
     description:
-      "A browser-based video editor for trimming, arranging and exporting short clips without installing software.",
-    category: "video-tools",
-    bestFor: "Short-form video editing",
-    pricing: "Freemium",
-    freePlan: true,
-    features: ["Timeline editing", "Captions", "Export options"],
-    pros: ["No installation needed", "Approachable for beginners"],
-    considerations: [
-      "Check resolution and watermark rules on the free plan",
-      "Large projects may need a faster connection",
-    ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: true,
-    tags: ["video", "editing", "captions"],
-    demo: true,
-  },
-  {
-    id: "demo-clip-generator-ai",
-    name: "Example Clip Generator AI",
-    slug: "example-clip-generator-ai",
-    shortDescription: "Turn long videos into short clips with AI.",
-    description:
-      "An AI tool that finds moments in a long video and turns them into short clips for social platforms.",
-    category: "video-tools",
-    bestFor: "Repurposing long videos",
+      "Envato Market is a group of seven marketplaces where you can buy digital assets, from website themes and video templates to royalty-free stock photos and audio. Products are created and sold by independent authors, and one Envato account works across all seven sites. Buying an item means purchasing a non-exclusive license to use it, not ownership of it.",
+    category: "website-assets",
+    bestFor: "Buying website themes, templates and plugins",
     pricing: "Paid",
-    freePlan: false,
-    features: ["Automatic clip suggestions", "Caption generation", "Vertical formats"],
-    pros: ["Saves time on repurposing", "Designed around short-form output"],
-    considerations: [
-      "Review every clip before publishing",
-      "No free plan, so check for a trial",
+    freePlan: null,
+    features: [
+      "Website themes and templates (ThemeForest)",
+      "Scripts and plugins (CodeCanyon)",
+      "Video, audio, graphics, photos and 3D assets",
+      "One Envato account across all seven sites",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: true,
-    tags: ["ai", "video", "clips", "social"],
-    demo: true,
-  },
-  {
-    id: "demo-writing-assistant",
-    name: "Example Writing Assistant",
-    slug: "example-writing-assistant",
-    shortDescription: "Suggestions to improve clarity, tone and structure.",
-    description:
-      "A writing assistant that suggests edits for clarity, tone and structure as you write.",
-    category: "writing-tools",
-    bestFor: "Polishing emails and documents",
-    pricing: "Freemium",
-    freePlan: true,
-    features: ["Clarity and tone suggestions", "Rewrite options", "Browser and app support"],
-    pros: ["Useful for everyday writing", "Quick suggestions while you type"],
-    considerations: [
-      "Suggestions are not always right, so review them",
-      "Some features may require a paid plan",
+    pros: [
+      "A wide range of item types from independent authors",
+      "Buy individual items at checkout with PayPal or a credit card",
+      "Supported items come with author support for a support period",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
-    featured: true,
-    tags: ["ai", "writing", "editing"],
-    demo: true,
-  },
-  {
-    id: "demo-grammar-checker",
-    name: "Example Grammar Checker",
-    slug: "example-grammar-checker",
-    shortDescription: "Spelling and grammar checks for everyday writing.",
-    description:
-      "A simple spelling and grammar checker for emails, documents and web forms.",
-    category: "writing-tools",
-    bestFor: "Proofreading",
-    pricing: "Free",
-    freePlan: true,
-    features: ["Spelling checks", "Grammar checks", "Works across websites"],
-    pros: ["Free to use", "Simple and unobtrusive"],
     considerations: [
-      "Fewer advanced features than full writing assistants",
-      "Confirm what data it processes in its privacy policy",
+      "You buy a license, so check whether you need a Regular or Extended license",
+      "Each item is sold by an independent author, so check the item page and support terms",
+      "Envato Elements is a separate subscription service, not part of Envato Market",
     ],
-    websiteUrl: "https://example.com",
-    affiliateUrl: "", // TODO: paste verified affiliate URL
+    websiteUrl: "https://themeforest.net/",
+    affiliateUrl: "", // TODO: add only after the Envato Market affiliate account is approved
     featured: false,
-    tags: ["writing", "grammar", "proofreading"],
-    demo: true,
+    tags: ["envato", "themes", "templates", "plugins", "website", "marketplace", "themeforest"],
+    demo: false,
   },
 ];
