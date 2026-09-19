@@ -44,7 +44,8 @@ export default function Footer() {
             <BrandLogo />
             <p className="mt-2 text-sm text-navy-700">{siteConfig.tagline}</p>
             <p className="mt-4 max-w-sm text-xs leading-5 text-muted">
-              Disclosure: Tool-Pic may earn a commission if you purchase through some links.{" "}
+              Disclosure: Tool-Pic may earn a commission from qualifying purchases made through some links.
+              Affiliate relationships are disclosed on relevant pages.{" "}
               <Link href="/affiliate-disclosure" className="font-medium text-brand underline underline-offset-2">
                 Read our affiliate disclosure
               </Link>
