@@ -42,7 +42,8 @@ Paste the link into the tool's `affiliateUrl`. If it is empty, "Visit Tool" link
 
 ## Before launch
 
-- All 10 tools are demo entries (`demo: true`, `websiteUrl: https://example.com`). Replace them with verified tools, then set `showDemoBadge: false` in `lib/site.ts`.
+- The 7 tools in `data/tools.ts` are real products with `demo: false` and an empty `affiliateUrl`. Add an affiliate link only after that program has approved your account.
+- Re-check each tool's facts against the provider's website before launch; plans and free-plan details change.
 - Privacy Policy and Terms are generic starters. Have them reviewed for your situation.
 - Set `contactEmail` in `lib/site.ts` if you want it shown on those pages.
 - Click tracking only logs in development and forwards to Plausible or GA if their script is added. Connect real analytics when ready.
