@@ -6,7 +6,7 @@ import { getAllTools } from "@/lib/tools";
 export const metadata: Metadata = {
   title: "Explore Tools",
   description:
-    "Search and filter AI, website, design, video and writing tools by category and pricing type.",
+    "Search and filter website builders, SEO, AI writing and website asset tools by category and pricing type.",
   alternates: { canonical: "/tools" },
   openGraph: { title: "Explore Tools | Tool-Pic", url: "/tools" },
 };
