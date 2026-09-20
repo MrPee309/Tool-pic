@@ -26,7 +26,7 @@ export default function HomePage() {
             Pick the right tool for the job.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-navy-700 sm:text-lg">
-            Discover useful AI, business, design, writing, video, and website tools without wasting
+            Discover useful tools for work, business, websites, and digital projects without wasting
             hours searching.
           </p>
           <div className="mt-8 max-w-2xl">
