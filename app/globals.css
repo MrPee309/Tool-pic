@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply overflow-x-clip bg-white text-navy-900 antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid #1f5eff;
+    outline-offset: 2px;
+  }
+
+  input:focus-visible,
+  select:focus-visible {
+    outline-offset: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-brand text-white hover:bg-brand-dark;
+  }
+
+  .btn-secondary {
+    @apply border border-line bg-white text-navy-900 hover:border-brand-200 hover:bg-brand-50;
+  }
+
+  /* Long-form text for About, Privacy, Terms and Affiliate Disclosure. */
+  .prose-page {
+    @apply max-w-2xl text-base leading-7 text-navy-700;
+  }
+  .prose-page h2 {
+    @apply mb-3 mt-10 text-xl font-semibold text-navy-900;
+  }
+  .prose-page p {
+    @apply mt-4;
+  }
+  .prose-page ul {
+    @apply mt-4 list-disc space-y-2 pl-5;
+  }
+  .prose-page a {
+    @apply font-medium text-brand underline underline-offset-2;
+  }
+}
