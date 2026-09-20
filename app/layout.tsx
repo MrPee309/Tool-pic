@@ -19,6 +19,14 @@ export const metadata: Metadata = {
   title: { default: homeTitle, template: "%s | Tool-Pic" },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+
+  verification: {
+    other: {
+      "impact-site-verification":
+        "aa343f1c-6929-41c2-bba3-b2293efd2ff8",
+    },
+  },
+
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
@@ -39,7 +47,11 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en" className={sans.variable}>
       <body className="flex min-h-screen flex-col font-sans">
