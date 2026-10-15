@@ -1,15 +1,9 @@
-import type { Tool } from "@/data/types";
-
-export interface ToolClickEvent {
-  tool_id: string;
-  tool_name: string;
-  tool_slug: string;
-  category: string;
-  /** Path of the page where the click happened. */
+export interface ProductClickEvent {
+  product_id: string;
+  product_name: string;
+  product_slug: string;
   page: string;
-  /** Which UI element was clicked, e.g. "tool-card" or "compare-table". */
   location: string;
-  /** Hostname of the referring site, if any (e.g. www.reddit.com). */
   referrer: string;
 }
 
@@ -29,21 +23,19 @@ function referrerHost(): string {
 }
 
 /**
- * Records an outbound tool click.
- * For now this only logs in development and forwards to gtag/Plausible if a
- * script for either has been added to the page. Connect real analytics later.
+ * Records an outbound click on an Adult Wellness product.
+ * Logs in development, forwards to gtag/Plausible if present.
  */
-export function trackToolClick(
-  tool: Pick<Tool, "id" | "name" | "slug" | "category">,
+export function trackProductClick(
+  product: { id: string; name: string; slug: string },
   location = "unknown",
 ): void {
   if (typeof window === "undefined") return;
 
-  const event: ToolClickEvent = {
-    tool_id: tool.id,
-    tool_name: tool.name,
-    tool_slug: tool.slug,
-    category: tool.category,
+  const event: ProductClickEvent = {
+    product_id: product.id,
+    product_name: product.name,
+    product_slug: product.slug,
     page: window.location.pathname,
     location,
     referrer: referrerHost(),
@@ -51,13 +43,13 @@ export function trackToolClick(
 
   try {
     if (typeof window.plausible === "function") {
-      window.plausible("Tool Click", { props: { ...event } });
+      window.plausible("Product Click", { props: { ...event } });
     }
     if (typeof window.gtag === "function") {
-      window.gtag("event", "tool_click", event);
+      window.gtag("event", "product_click", event);
     }
     if (process.env.NODE_ENV !== "production") {
-      console.info("[Tool-Pic] tool_click", event);
+      console.info("[Tool-Pic] product_click", event);
     }
   } catch {
     // Analytics must never break navigation.
