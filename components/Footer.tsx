@@ -2,11 +2,7 @@ import Link from "next/link";
 import BrandLogo from "./BrandLogo";
 import { siteConfig } from "@/lib/site";
 
-const explore = [
-  { href: "/tools", label: "Tools" },
-  { href: "/categories", label: "Categories" },
-  { href: "/compare", label: "Compare" },
-];
+const explore = [{ href: "/adult-wellness", label: "Adult Wellness" }];
 
 const company = [
   { href: "/about", label: "About" },
