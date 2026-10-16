@@ -22,6 +22,13 @@ export interface AdultProduct {
   affiliateUrl: string;
   /** True if the exact product title could not be confirmed against the merchant's page. */
   titleUnverified?: boolean;
+  /**
+   * Optional path to a locally-stored image under /public, e.g. "/products/strap-on.jpg".
+   * Left unset for every product below: no image was fetched from ADUTOYS (see README).
+   * Add a real image only if you have the right to use it (your own photo, or an asset
+   * ADUTOYS provides through its affiliate program) and drop the file into /public.
+   */
+  image?: string;
 }
 
 export const adultProducts: AdultProduct[] = [
