@@ -37,13 +37,15 @@ Before publishing, double-check each product's title, price and description agai
 
 ### Product images
 
-No product images were fetched from ADUTOYS — product photography wasn't retrieved directly from the merchant, so every card currently shows a plain placeholder icon. To add a real photo for a product:
+All 5 products now have an `image`: the ADUTOYS catalog image URL you supplied, hotlinked directly (not downloaded). Claude did not fetch, open or view these images — they were matched to each product by comparing the image filename to that product's own `affiliateUrl` slug, a plain text match, and the result was spot-checked (all 5 filenames correspond 1:1, no two products share an image). Since this wasn't viewed, there's no way to confirm what each image actually shows beyond that filename match — check them yourself once the site is live.
 
-1. Get an image you have the right to use (your own photo of the item, or an asset ADUTOYS provides through its affiliate program — check your affiliate dashboard for a media/assets section).
+Hotlinking means the site depends on ADUTOYS continuing to serve images at these exact `image/cache/catalog/...` paths; if ADUTOYS reorganizes its catalog or that cache expires, the image breaks. For a copy Tool-Pic doesn't depend on:
+
+1. Download each image file yourself (save-as from your browser, or from ADUTOYS' affiliate asset dashboard if it has one).
 2. Drop the file into `/public`, e.g. `/public/products/strap-on-beginners.jpg`.
-3. In `data/adult-products.ts`, set that product's `image` to the matching path, e.g. `image: "/products/strap-on-beginners.jpg"`.
+3. In `data/adult-products.ts`, change that product's `image` from the `https://...` URL to the local path, e.g. `image: "/products/strap-on-beginners.jpg"`.
 
-The card picks it up automatically; no component changes needed. Products with no `image` set keep the placeholder.
+No component changes are needed either way — `AdultProductCard` renders whatever string is in `image`, local path or full URL.
 
 ### Discounts
 
