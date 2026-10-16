@@ -1,6 +1,6 @@
 # Tool-Pic
 
-Pick the right tool for the job. A small Next.js (App Router) + Tailwind CSS site for discovering and comparing tools. No database, no auth, no API routes. Everything is statically generated from the files in `data/`.
+A small Next.js (App Router) + Tailwind CSS site. No database, no auth, no API routes. The only thing the site sells is the Adult Wellness product catalog in `data/adult-products.ts`.
 
 ## Run locally
 
@@ -25,25 +25,16 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` if you are no
 
 | What | Where |
 | --- | --- |
-| Tools (all content) | `data/tools.ts` |
-| Categories | `data/categories.ts` |
-| Comparison pages | `data/comparisons.ts` |
-| Affiliate link logic (one place) | `lib/affiliate.ts` |
+| Adult Wellness products (the site's whole catalog) | `data/adult-products.ts` |
 | Click tracking | `lib/analytics.ts` |
-| Site name, URL, demo badge, contact email | `lib/site.ts` |
+| Site name, URL, contact email | `lib/site.ts` |
 
-## Adding a tool
+## Adult Wellness products
 
-Copy an entry in `data/tools.ts`, give it a unique `id` and `slug`, pick a category slug. Pages, search, filters, sitemap and related tools update automatically. To include it in a comparison page, add its slug to `toolSlugs` in `data/comparisons.ts`.
+`data/adult-products.ts` holds the catalog: name, price, neutral description, affiliate URL. Every product always has a real affiliate URL with its tracking parameter — don't strip or re-encode the `?tracking=...` query string when editing.
 
-## Affiliate links
+Before publishing, double-check each product's title, price and description against ADUTOYS' own product pages — the title for the "Mini Silicone Sex Doll / Male Masturbator" entry in particular could not be confirmed and is flagged in a code comment in `data/adult-products.ts`.
 
-Paste the link into the tool's `affiliateUrl`. If it is empty, "Visit Tool" links to `websiteUrl`. Links with an `affiliateUrl` get `rel="sponsored"`. Nothing else in the codebase contains affiliate URLs.
+## No other affiliate programs
 
-## Before launch
-
-- The 7 tools in `data/tools.ts` are real products with `demo: false` and an empty `affiliateUrl`. Add an affiliate link only after that program has approved your account.
-- Re-check each tool's facts against the provider's website before launch; plans and free-plan details change.
-- Privacy Policy and Terms are generic starters. Have them reviewed for your situation.
-- Set `contactEmail` in `lib/site.ts` if you want it shown on those pages.
-- Click tracking only logs in development and forwards to Plausible or GA if their script is added. Connect real analytics when ready.
+The earlier technology-tool catalog (Wix, Webflow, Framer, Durable, Semrush, Jasper, Envato Market) and its pages, categories and comparisons have been removed. The site is not affiliated with any of those programs. Adult Wellness / ADUTOYS is the only affiliate relationship on the site.
