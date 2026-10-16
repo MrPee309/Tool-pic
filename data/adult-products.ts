@@ -23,10 +23,13 @@ export interface AdultProduct {
   /** True if the exact product title could not be confirmed against the merchant's page. */
   titleUnverified?: boolean;
   /**
-   * Optional path to a locally-stored image under /public, e.g. "/products/strap-on.jpg".
-   * Left unset for every product below: no image was fetched from ADUTOYS (see README).
-   * Add a real image only if you have the right to use it (your own photo, or an asset
-   * ADUTOYS provides through its affiliate program) and drop the file into /public.
+   * Either a path to a locally-stored image under /public (e.g. "/products/strap-on.jpg")
+   * or a full https:// URL. The five below are hotlinked straight to ADUTOYS' own catalog
+   * images, matched to each product by comparing the image filename to the product's own
+   * affiliateUrl slug — Claude did not fetch, open or view these images (see README). This
+   * means the site depends on ADUTOYS continuing to serve images at these exact paths; for
+   * a copy Tool-Pic doesn't depend on, download the files yourself and switch this to a
+   * local /public path.
    */
   image?: string;
 }
@@ -42,6 +45,8 @@ export const adultProducts: AdultProduct[] = [
     previousPrice: "$79.00",
     affiliateUrl:
       "https://www.adutoys.com/1-inch-dildo-small-strap-on-beginners?tracking=2fDD6gQeKVPnRCwRvzIuK1ZiZoxslZXO91hsh3yyCCbtQM8CefKjUwM7SZvMIBhY",
+    image:
+      "https://www.adutoys.com/image/cache/catalog/images/toys/1-inch-dildo_feature-550x550.jpg", // hotlinked from ADUTOYS; not fetched/verified by Claude — see README
   },
   {
     id: "adutoys-mini-male-masturbator",
@@ -56,6 +61,8 @@ export const adultProducts: AdultProduct[] = [
     // what the merchant currently shows. Could not confirm against the live
     // product page — verify before publishing.
     titleUnverified: true,
+    image:
+      "https://www.adutoys.com/image/cache/catalog/images/toys/copy-of-sex-doll-male-masturbator_feature-550x550.jpg", // hotlinked from ADUTOYS; not fetched/verified by Claude — see README
   },
   {
     id: "adutoys-torso-masturbator",
@@ -65,6 +72,8 @@ export const adultProducts: AdultProduct[] = [
     price: "$188.49",
     affiliateUrl:
       "https://www.adutoys.com/1.9lb-half-body-silicone-sex-toy-torso-for-men-masturbator-fleshlight?tracking=2fDD6gQeKVPnRCwRvzIuK1ZiZoxslZXO91hsh3yyCCbtQM8CefKjUwM7SZvMIBhY",
+    image:
+      "https://www.adutoys.com/image/cache/catalog/images/toys/19lbhalfbodytprsextoytorsoformenmasturbator_feature-550x550.jpg", // hotlinked from ADUTOYS; not fetched/verified by Claude — see README
   },
   {
     id: "adutoys-usb-vibrator-quiet",
@@ -75,6 +84,8 @@ export const adultProducts: AdultProduct[] = [
     previousPrice: "$38.99",
     affiliateUrl:
       "https://www.adutoys.com/10-frequencies-vibrating-quiet-usb-charging-vibrator?tracking=2fDD6gQeKVPnRCwRvzIuK1ZiZoxslZXO91hsh3yyCCbtQM8CefKjUwM7SZvMIBhY",
+    image:
+      "https://www.adutoys.com/image/cache/catalog/images/toys/10frequenciesvibratingquietusbchargingvibrator_feature-550x550.jpg", // hotlinked from ADUTOYS; not fetched/verified by Claude — see README
   },
   {
     id: "adutoys-womens-vibrator",
@@ -84,5 +95,7 @@ export const adultProducts: AdultProduct[] = [
     price: "$115.69",
     affiliateUrl:
       "https://www.adutoys.com/10-frequencies-vibration-vibrator-for-women-masturbation?tracking=2fDD6gQeKVPnRCwRvzIuK1ZiZoxslZXO91hsh3yyCCbtQM8CefKjUwM7SZvMIBhY",
+    image:
+      "https://www.adutoys.com/image/cache/catalog/images/toys/10frequenciesvibrationvibratorforwomenmasturbation_feature-550x550.jpg", // hotlinked from ADUTOYS; not fetched/verified by Claude — see README
   },
 ];
