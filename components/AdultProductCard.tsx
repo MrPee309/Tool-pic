@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import type { AdultProduct } from "@/data/adult-products";
 import { trackProductClick } from "@/lib/analytics";
 import ProductImagePlaceholder from "./ProductImagePlaceholder";
@@ -12,31 +12,40 @@ function parseUsd(value?: string): number | null {
   return match ? Number(match[1]) : null;
 }
 
-/** Whole-percent discount, only when both prices parse cleanly and the price actually dropped. */
-function discountPercent(price: string, previousPrice?: string): number | null {
-  const current = parseUsd(price);
-  const previous = parseUsd(previousPrice);
-  if (current === null || previous === null || previous <= current) return null;
-  return Math.round(((previous - current) / previous) * 100);
+/** Whole-number discount computed from the two stored prices, or null. */
+function discountPercent(price: string, previous?: string): number | null {
+  const now = parseUsd(price);
+  const before = parseUsd(previous);
+  if (now === null || before === null || before <= now) return null;
+  return Math.round(((before - now) / before) * 100);
 }
 
+const IMAGE_BOX = "aspect-square w-full";
+
 export default function AdultProductCard({ product }: { product: AdultProduct }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // An image that fails before React hydrates never fires onError on the client,
+  // so check its state once on mount as well.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) setImageFailed(true);
+  }, []);
+
+  const discount = discountPercent(product.price, product.previousPrice);
   const track = () => trackProductClick(product, "adult-wellness-card");
   const trackMiddleClick = (e: MouseEvent) => {
     if (e.button === 1) track();
   };
-  const discount = discountPercent(product.price, product.previousPrice);
   const priceSummary = product.previousPrice
-    ? `${product.price}, reduced from ${product.previousPrice}`
+    ? `${product.price}, was ${product.previousPrice}`
     : product.price;
+  const showImage = Boolean(product.image) && !imageFailed;
 
   return (
-    // The whole card is one link (a "stretched link" pattern): clicking
-    // anywhere on it — not just the "View Product" label — opens the exact
-    // same tracked ADUTOYS URL. The visible content is marked aria-hidden
-    // and the link carries one clear aria-label, so screen readers get a
-    // single, concise announcement instead of the name/price/button text
-    // all running together.
+    // The whole card is ONE link: no nested <a> or <button>, one tab stop,
+    // one clear announcement for screen readers.
     <a
       href={product.affiliateUrl}
       target="_blank"
@@ -44,15 +53,32 @@ export default function AdultProductCard({ product }: { product: AdultProduct })
       onClick={track}
       onAuxClick={trackMiddleClick}
       aria-label={`${product.name}, ${priceSummary}. View product on ADUTOYS (opens in a new tab).`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-colors hover:border-brand-200 hover:bg-brand-50"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-colors hover:border-brand-200"
     >
       <div aria-hidden="true" className="flex h-full flex-col">
-        <div className="relative">
-          {product.image ? (
+        <div className="relative bg-surface">
+          {showImage ? (
+            // Plain <img>: works for local /public paths and remote URLs alike,
+            // with no next.config image settings. no-referrer avoids
+            // Referer-based hotlink blocking on the merchant's server.
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={product.image} alt="" className="h-44 w-full object-cover sm:h-48" />
+            <img
+              ref={imgRef}
+              src={product.image}
+              alt=""
+              width={550}
+              height={550}
+              // Eager on purpose: with loading="lazy", a deferred image reports
+              // complete=true / naturalWidth=0 and would be mistaken for a failure.
+              // Only five images, so eager loading costs little.
+              loading="eager"
+              decoding="async"
+              referrerPolicy="no-referrer"
+              onError={() => setImageFailed(true)}
+              className={`${IMAGE_BOX} object-contain`}
+            />
           ) : (
-            <ProductImagePlaceholder className="h-44 w-full rounded-none sm:h-48" />
+            <ProductImagePlaceholder className={IMAGE_BOX} />
           )}
           {discount !== null && (
             <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">
@@ -61,25 +87,26 @@ export default function AdultProductCard({ product }: { product: AdultProduct })
           )}
         </div>
 
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
-          <h3 className="break-words text-lg font-semibold leading-snug text-navy-900">
+        <div className="flex flex-1 flex-col p-4 sm:p-5">
+          <h3 className="break-words text-base font-semibold leading-snug text-navy-900 sm:text-lg">
             {product.name}
           </h3>
 
           <p className="mt-2 text-sm leading-6 text-navy-700">{product.description}</p>
 
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-xl font-bold text-navy-900">{product.price}</span>
-            {product.previousPrice && (
-              <span className="text-sm text-muted line-through">{product.previousPrice}</span>
-            )}
-          </div>
-          <p className="mt-1 text-xs text-muted">USD. Price as observed; confirm on the merchant&apos;s site.</p>
+          <div className="mt-auto pt-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-bold text-navy-900">{product.price}</span>
+              {product.previousPrice && (
+                <span className="text-sm text-muted line-through">{product.previousPrice}</span>
+              )}
+            </div>
+            <p className="mt-1 text-xs text-muted">USD. Price as observed; confirm on ADUTOYS.</p>
 
-          <span className="btn btn-primary mt-5 w-full group-hover:bg-brand-dark">
-            <span>View Product</span>
-            <span>→</span>
-          </span>
+            <span className="btn btn-primary mt-4 w-full group-hover:bg-brand-dark">
+              View Product
+            </span>
+          </div>
         </div>
       </div>
     </a>

@@ -1,8 +1,8 @@
-/** Neutral placeholder used when a product has no locally-stored image. */
+/** Neutral placeholder shown when a product has no image or its image fails to load. */
 export default function ProductImagePlaceholder({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`flex items-center justify-center rounded-xl bg-brand-50 text-brand ring-1 ring-inset ring-brand-100 ${className}`}
+      className={`flex flex-col items-center justify-center gap-2 bg-brand-50 text-brand ring-1 ring-inset ring-brand-100 ${className}`}
       role="img"
       aria-label="Product image not available"
     >
@@ -21,6 +21,7 @@ export default function ProductImagePlaceholder({ className = "" }: { className?
         <path d="M3 7l2.5-4h13L21 7" />
         <circle cx="12" cy="13.5" r="3" />
       </svg>
+      <span className="text-xs font-medium text-muted">Image unavailable</span>
     </div>
   );
 }
