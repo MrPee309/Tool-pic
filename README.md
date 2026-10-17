@@ -1,6 +1,6 @@
 # Tool-Pic
 
-A small Next.js (App Router) + Tailwind CSS site. No database, no auth, no API routes. The only thing the site sells is the Adult Wellness product catalog in `data/adult-products.ts`.
+A small Next.js (App Router) + Tailwind CSS site. No database, no auth, no API routes. The only thing the site sells is the Adult Wellness product catalog in `data/adult-products.ts`, shown at `/adult-wellness`.
 
 ## Run locally
 
@@ -16,7 +16,7 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` if you are no
 
 ## Deploy to Vercel
 
-1. Push this folder to a GitHub repo.
+1. Push this folder to a GitHub repo, committing directly to `main`.
 2. In Vercel: Add New > Project > import the repo. Framework preset is detected as Next.js; no build settings needed.
 3. Add the environment variable `NEXT_PUBLIC_SITE_URL` = `https://tool-pic.com`.
 4. Deploy, then add `tool-pic.com` under Project > Settings > Domains.
@@ -25,32 +25,41 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` if you are no
 
 | What | Where |
 | --- | --- |
-| Adult Wellness products (the site's whole catalog) | `data/adult-products.ts` |
+| Product data (the site's whole catalog) | `data/adult-products.ts` |
+| Catalog page | `app/adult-wellness/page.tsx` |
+| Search + category filter | `components/AdultCatalog.tsx` |
+| Product card | `components/AdultProductCard.tsx` |
+| Image fallback | `components/ProductImagePlaceholder.tsx` |
+| Local product images | `public/products/` |
 | Click tracking | `lib/analytics.ts` |
 | Site name, URL, contact email | `lib/site.ts` |
 
-## Adult Wellness products
+## Adult Wellness catalog
 
-`data/adult-products.ts` holds the catalog: name, price, neutral description, affiliate URL, and an optional `image`. Every product always has a real affiliate URL with its tracking parameter — don't strip or re-encode the `?tracking=...` query string when editing. Each card is one clickable link covering the whole card (image, text and button); clicking anywhere on it opens that product's exact ADUTOYS URL in a new tab.
+`data/adult-products.ts` holds each product's name, category, price, neutral description, affiliate URL and optional `image`. Every product always has a real affiliate URL with its tracking parameter — don't strip or re-encode the `?tracking=...` query string when editing.
 
-Before publishing, double-check each product's title, price and description against ADUTOYS' own product pages — the title for the "Mini Silicone Sex Doll / Male Masturbator" entry in particular could not be confirmed and is flagged in a code comment in `data/adult-products.ts`.
+Each card is one clickable link covering the whole card (image, text and button). Clicking anywhere on it opens that product's exact ADUTOYS URL in a new tab. There are no nested links or buttons.
+
+Categories (`Vibrators`, `For men`, `Strap-ons`) are defined at the top of `data/adult-products.ts` and were assigned from each product's own name. Add a new category there if you add a product that doesn't fit.
+
+Before publishing, double-check each product's title, price and description against ADUTOYS' own product pages — the title for the "Mini Silicone Sex Doll / Male Masturbator" entry in particular could not be confirmed and is flagged in a code comment.
 
 ### Product images
 
-All 5 products now have an `image`: the ADUTOYS catalog image URL you supplied, hotlinked directly (not downloaded). Claude did not fetch, open or view these images — they were matched to each product by comparing the image filename to that product's own `affiliateUrl` slug, a plain text match, and the result was spot-checked (all 5 filenames correspond 1:1, no two products share an image). Since this wasn't viewed, there's no way to confirm what each image actually shows beyond that filename match — check them yourself once the site is live.
+Right now each product's `image` is the official ADUTOYS catalog image URL that was supplied for it (hotlinked). These URLs have not been tested from the build environment. If one fails to load in the visitor's browser, the card shows a neutral "Image unavailable" panel instead of a broken-image icon or a substitute photo.
 
-Hotlinking means the site depends on ADUTOYS continuing to serve images at these exact `image/cache/catalog/...` paths; if ADUTOYS reorganizes its catalog or that cache expires, the image breaks. For a copy Tool-Pic doesn't depend on:
+Local copies are more reliable, because the site then no longer depends on ADUTOYS' server. To switch a product to a local image:
 
-1. Download each image file yourself (save-as from your browser, or from ADUTOYS' affiliate asset dashboard if it has one).
-2. Drop the file into `/public`, e.g. `/public/products/strap-on-beginners.jpg`.
-3. In `data/adult-products.ts`, change that product's `image` from the `https://...` URL to the local path, e.g. `image: "/products/strap-on-beginners.jpg"`.
+1. Save the image file into `public/products/`, using a simple lowercase name with no spaces, e.g. `public/products/womens-vibrator.jpg`.
+2. In `data/adult-products.ts`, change that product's `image` to the path without `public`, e.g. `image: "/products/womens-vibrator.jpg"`.
+3. Commit both the image file and the data file to `main`. File names are case-sensitive on Vercel: `Womens-Vibrator.JPG` and `womens-vibrator.jpg` are different files.
 
-No component changes are needed either way — `AdultProductCard` renders whatever string is in `image`, local path or full URL.
+No component changes are needed either way.
 
 ### Discounts
 
-A "-X%" badge appears automatically on a card only when both `price` and `previousPrice` are set and `previousPrice` is actually higher — it's computed from the two stored values, never typed in by hand, so it can't drift out of sync with the prices shown.
+A "-X%" badge appears on a card only when both `price` and `previousPrice` are set and `previousPrice` is higher. It is computed from the two stored values, never typed by hand.
 
 ## No other affiliate programs
 
-The earlier technology-tool catalog (Wix, Webflow, Framer, Durable, Semrush, Jasper, Envato Market) and its pages, categories and comparisons have been removed. The site is not affiliated with any of those programs. Adult Wellness / ADUTOYS is the only affiliate relationship on the site.
+The earlier technology-tool catalog (Wix, Webflow, Framer, Durable, Semrush, Jasper, Envato Market) and its pages, categories and comparisons have been removed. Adult Wellness / ADUTOYS is the only affiliate relationship on the site.
